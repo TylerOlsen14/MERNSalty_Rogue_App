@@ -72,6 +72,19 @@ app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api', posts);
 
+// DB config
+const db = require('../config/keys')
+
+// connect to Mongo
+mongoose
+  .connect(db)
+  .then(() => console.log('MongoDB connected ... '))
+  .catch(err => console.log(err))
+
+  const port = process.env.PORT || 5000;
+
+  app.listen(port, () => console.log('Server started on port ${port}'))
+
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
   const head = Helmet.rewind();
